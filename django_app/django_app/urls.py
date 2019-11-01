@@ -10,6 +10,7 @@ router.register(r'units', views.UnitViewSet)
 router.register(r'utensils', views.UtensilViewSet)
 router.register(r'receipes', views.ReceipeViewSet)
 router.register(r'receipe_entries', views.ReceipeEntryViewSet)
+router.register(r'receipe_steps', views.ReceipeStepViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

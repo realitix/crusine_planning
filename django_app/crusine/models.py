@@ -59,9 +59,13 @@ class ReceipeEntry(models.Model):
 
 class ReceipeStep(models.Model):
     receipe = models.ForeignKey(Receipe, models.CASCADE)
-    previous_step = models.ForeignKey('self', models.CASCADE)
+    previous_step = models.ForeignKey(
+        'self', models.CASCADE, null=True, blank=True)
     description = models.TextField()
     duration = models.DurationField()
+
+    def __str__(self):
+        return self.description
 
 
 # Receipe can contain ingredient

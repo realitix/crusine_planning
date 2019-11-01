@@ -12,10 +12,13 @@ class Unit(models.Model):
 class Utensil(models.Model):
     name = models.CharField(unique=True, max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Receipe(models.Model):
     name = models.CharField(unique=True, max_length=150)
-    utensils = models.ManyToManyField(Utensil)
+    utensils = models.ManyToManyField(Utensil, related_name="receipes")
     nb_people = models.SmallIntegerField()
     stars = models.SmallIntegerField(choices=[
         (1, "very bad"),

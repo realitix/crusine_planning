@@ -8,6 +8,7 @@ router.register(r'groups', views.GroupViewSet)
 router.register(r'ingredients', views.IngredientViewSet)
 router.register(r'units', views.UnitViewSet)
 router.register(r'utensils', views.UtensilViewSet)
+router.register(r'receipes', views.ReceipeViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from crusine.models import Ingredient, Unit, Utensil
+from crusine import models as m
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -18,17 +18,23 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 class IngredientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Ingredient
+        model = m.Ingredient
         fields = ['name']
 
 
 class UnitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Unit
+        model = m.Unit
         fields = ['name']
 
 
 class UtensilSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Utensil
+        model = m.Utensil
         fields = ['name']
+
+
+class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = m.Receipe
+        fields = ['name', 'utensils', 'nb_people', 'stars']

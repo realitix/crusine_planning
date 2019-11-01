@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 
-from crusine.models import Ingredient, Unit, Utensil
+from crusine import models as m
 from crusine import serializers as s
 
 
@@ -16,15 +16,20 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 
 class IngredientViewSet(viewsets.ModelViewSet):
-    queryset = Ingredient.objects.all()
+    queryset = m.Ingredient.objects.all()
     serializer_class = s.IngredientSerializer
 
 
 class UnitViewSet(viewsets.ModelViewSet):
-    queryset = Unit.objects.all()
+    queryset = m.Unit.objects.all()
     serializer_class = s.UnitSerializer
 
 
 class UtensilViewSet(viewsets.ModelViewSet):
-    queryset = Utensil.objects.all()
+    queryset = m.Utensil.objects.all()
     serializer_class = s.UtensilSerializer
+
+
+class ReceipeViewSet(viewsets.ModelViewSet):
+    queryset = m.Receipe.objects.all()
+    serializer_class = s.ReceipeSerializer

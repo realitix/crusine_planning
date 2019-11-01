@@ -53,3 +53,8 @@ class ReceipeStepEntryViewSet(viewsets.ModelViewSet):
 class MealViewSet(viewsets.ModelViewSet):
     queryset = m.Meal.objects.all()
     serializer_class = s.MealSerializer
+
+
+class MealStepViewSet(viewsets.ModelViewSet):
+    queryset = m.MealStep.objects.all()
+    serializer_class = s.MealStepSerializer

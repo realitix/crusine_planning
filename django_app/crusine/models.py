@@ -86,3 +86,6 @@ class MealStep(models.Model):
     meal = models.ForeignKey(Meal, models.CASCADE)
     name = models.CharField(max_length=30)
     receipe_entry = models.ForeignKey(Receipe, models.CASCADE)
+
+    def __str__(self):
+        return self.name

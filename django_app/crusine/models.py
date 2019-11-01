@@ -53,7 +53,7 @@ class ReceipeEntry(models.Model):
 
     def __str__(self):
         if self.receipe:
-            return self.receipe
+            return self.receipe.__str__()
         return "{} {}{}".format(self.ingredient, self.quantity, self.unit)
 
 

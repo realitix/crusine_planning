@@ -50,3 +50,9 @@ class ReceipeStepSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.ReceipeStep
         fields = ['receipe', 'previous_step', 'description', 'duration']
+
+
+class ReceipeStepEntrySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = m.ReceipeStepEntry
+        fields = ['receipe_step', 'receipe_entry']

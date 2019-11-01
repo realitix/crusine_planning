@@ -43,3 +43,8 @@ class ReceipeEntryViewSet(viewsets.ModelViewSet):
 class ReceipeStepViewSet(viewsets.ModelViewSet):
     queryset = m.ReceipeStep.objects.all()
     serializer_class = s.ReceipeStepSerializer
+
+
+class ReceipeStepEntryViewSet(viewsets.ModelViewSet):
+    queryset = m.ReceipeStepEntry.objects.all()
+    serializer_class = s.ReceipeStepEntrySerializer

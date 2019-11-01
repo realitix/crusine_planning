@@ -1,19 +1,30 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from .serializers import UserSerializer, GroupSerializer
+
+from crusine.models import Ingredient, Unit, Utensil
+from crusine import serializers as s
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
     queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
+    serializer_class = s.UserSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
     queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    serializer_class = s.GroupSerializer
+
+
+class IngredientViewSet(viewsets.ModelViewSet):
+    queryset = Ingredient.objects.all()
+    serializer_class = s.IngredientSerializer
+
+
+class UnitViewSet(viewsets.ModelViewSet):
+    queryset = Unit.objects.all()
+    serializer_class = s.UnitSerializer
+
+
+class UtensilViewSet(viewsets.ModelViewSet):
+    queryset = Utensil.objects.all()
+    serializer_class = s.UtensilSerializer

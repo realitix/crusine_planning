@@ -33,3 +33,8 @@ class UtensilViewSet(viewsets.ModelViewSet):
 class ReceipeViewSet(viewsets.ModelViewSet):
     queryset = m.Receipe.objects.all()
     serializer_class = s.ReceipeSerializer
+
+
+class ReceipeEntryViewSet(viewsets.ModelViewSet):
+    queryset = m.ReceipeEntry.objects.all()
+    serializer_class = s.ReceipeEntrySerializer

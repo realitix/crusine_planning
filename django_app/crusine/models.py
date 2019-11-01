@@ -4,9 +4,15 @@ from django.db import models
 class Ingredient(models.Model):
     name = models.CharField(unique=True, max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Unit(models.Model):
     name = models.CharField(unique=True, max_length=30)
+
+    def __str__(self):
+        return self.name
 
 
 class Utensil(models.Model):
@@ -27,6 +33,9 @@ class Receipe(models.Model):
         (4, 'good'),
         (5, 'very good')
     ])
+
+    def __str__(self):
+        return self.name
 
 
 # This class allows to abstract the behavior of selecting an ingredient

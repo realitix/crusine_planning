@@ -38,3 +38,9 @@ class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.Receipe
         fields = ['name', 'utensils', 'nb_people', 'stars']
+
+
+class ReceipeEntrySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = m.ReceipeEntry
+        fields = ['receipe', 'ingredient', 'unit', 'quantity']

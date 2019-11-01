@@ -1,0 +1,7 @@
+django
+djangorestframework
+coreapi
+Markdown
+Pygments
+django-filter
+django-guardian

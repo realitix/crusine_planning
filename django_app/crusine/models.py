@@ -78,6 +78,9 @@ class Meal(models.Model):
     datetime = models.DateTimeField()
     nb_people = models.SmallIntegerField()
 
+    def __str__(self):
+        return self.datetime.__str__()
+
 
 class MealStep(models.Model):
     meal = models.ForeignKey(Meal, models.CASCADE)

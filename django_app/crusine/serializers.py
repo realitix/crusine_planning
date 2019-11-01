@@ -56,3 +56,9 @@ class ReceipeStepEntrySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.ReceipeStepEntry
         fields = ['receipe_step', 'receipe_entry']
+
+
+class MealSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = m.Meal
+        fields = ['datetime', 'nb_people']

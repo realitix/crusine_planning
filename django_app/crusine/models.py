@@ -51,6 +51,11 @@ class ReceipeEntry(models.Model):
         Unit, models.CASCADE, blank=True, null=True)
     quantity = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        if self.receipe:
+            return self.receipe
+        return "{} {}{}".format(self.ingredient, self.quantity, self.unit)
+
 
 class ReceipeStep(models.Model):
     receipe = models.ForeignKey(Receipe, models.CASCADE)

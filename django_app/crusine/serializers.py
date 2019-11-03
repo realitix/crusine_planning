@@ -5,9 +5,12 @@ from crusine import models as m
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    receipes = serializers.PrimaryKeyRelatedField(
+        many=True, queryset=m.Receipe.objects.all())
+
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
+        fields = ['url', 'username', 'email', 'groups', 'receipes']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -37,7 +40,7 @@ class UtensilSerializer(serializers.HyperlinkedModelSerializer):
 class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.Receipe
-        fields = ['name', 'utensils', 'nb_people', 'stars']
+        fields = ['name', 'user', 'utensils', 'nb_people', 'stars']
 
 
 class ReceipeEntrySerializer(serializers.HyperlinkedModelSerializer):

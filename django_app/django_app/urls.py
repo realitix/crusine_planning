@@ -1,5 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
+from rest_framework.authtoken import views as token_views
 from crusine import views
 
 router = routers.DefaultRouter()
@@ -19,6 +20,8 @@ router.register(r'meal_steps', views.MealStepViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/',
-         include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls')),
+    
+    # POST with {"username": "xx", "password": "xx"}
+    path('api-token-auth/', token_views.obtain_auth_token)
 ]

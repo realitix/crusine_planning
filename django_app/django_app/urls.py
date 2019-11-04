@@ -23,5 +23,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     
     # POST with {"username": "xx", "password": "xx"}
+    # Ensuite, ajouter le header suivant
+    # Authorization: Token [TOEKN_ID]
     path('api-token-auth/', token_views.obtain_auth_token)
 ]

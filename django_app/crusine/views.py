@@ -34,7 +34,6 @@ class UtensilViewSet(viewsets.ModelViewSet):
 class ReceipeViewSet(viewsets.ModelViewSet):
     queryset = m.Receipe.objects.all()
     serializer_class = s.ReceipeSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class ReceipeEntryViewSet(viewsets.ModelViewSet):

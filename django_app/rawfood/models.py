@@ -11,11 +11,39 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 
-class Ingredient(models.Model):
+class IngredientCategory(models.Model):
     name = models.CharField(unique=True, max_length=50)
+    fresh = models.BooleanField()
 
     def __str__(self):
         return self.name
+
+
+class Ingredient(models.Model):
+    name = models.CharField(unique=True, max_length=50)
+    category = models.ForeignKey(
+        IngredientCategory,
+        on_delete=models.CASCADE,
+        related_name="ingredients"
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class IngredientNutrition(models.Model):
+    protein = models.PositiveIntegerField()
+    glucid = models.PositiveIntegerField()
+    lipid = models.PositiveIntegerField()
+
+    ingredient = models.OneToOneField(
+        Ingredient,
+        on_delete=models.CASCADE,
+        primary_key=True
+    )
+
+    def __str__(self):
+        return "Nutrition " + self.ingredient.name
 
 
 class Unit(models.Model):

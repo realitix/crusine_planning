@@ -2,8 +2,8 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
 
-from crusine import models as m
-from crusine import serializers as s
+from rawfood import models as m
+from rawfood import serializers as s
 
 
 class UserViewSet(viewsets.ModelViewSet):

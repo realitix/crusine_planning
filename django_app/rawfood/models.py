@@ -32,6 +32,7 @@ class Ingredient(models.Model):
 
 
 class IngredientNutrition(models.Model):
+    # All fields are in microgram
     protein = models.PositiveIntegerField()
     glucid = models.PositiveIntegerField()
     lipid = models.PositiveIntegerField()

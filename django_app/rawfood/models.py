@@ -65,15 +65,16 @@ class Receipe(models.Model):
     name = models.CharField(unique=True, max_length=150)
     user = models.ForeignKey('auth.User', related_name="receipes",
                              on_delete=models.CASCADE)
-    utensils = models.ManyToManyField(Utensil, related_name="receipes")
-    nb_people = models.SmallIntegerField()
+    utensils = models.ManyToManyField(Utensil, related_name="receipes",
+                                      blank=True)
+    nb_people = models.SmallIntegerField(blank=True, default=1)
     stars = models.SmallIntegerField(choices=[
         (1, "very bad"),
         (2, "bad"),
         (3, 'mediocre'),
         (4, 'good'),
         (5, 'very good')
-    ])
+    ], blank=True, default=3)
 
     def __str__(self):
         return self.name

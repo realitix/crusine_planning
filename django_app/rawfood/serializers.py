@@ -38,6 +38,10 @@ class UtensilSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
     class Meta:
         model = m.Receipe
         fields = ['name', 'user', 'utensils', 'nb_people', 'stars']

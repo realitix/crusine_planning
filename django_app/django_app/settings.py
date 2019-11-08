@@ -25,7 +25,7 @@ SECRET_KEY = '@)zep)kb)(g@92vr5=k-j28n^6ui5t=^+gk@a$8!_9c57ifx$%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['abouletonfilm.fr']
+ALLOWED_HOSTS = ['127.0.0.1', 'abouletonfilm.fr']
 
 
 # Application definition
@@ -128,11 +128,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        #'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
         
     ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticated'
     ]
 }

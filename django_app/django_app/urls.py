@@ -1,6 +1,8 @@
 from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken import views as token_views
+from rest_framework.schemas import get_schema_view
+
 from rawfood import views
 
 router = routers.DefaultRouter()
@@ -25,5 +27,10 @@ urlpatterns = [
     # POST with {"username": "xx", "password": "xx"}
     # Ensuite, ajouter le header suivant
     # Authorization: Token [TOEKN_ID]
-    path('api-token-auth/', token_views.obtain_auth_token)
+    path('api-token-auth/', token_views.obtain_auth_token),
+
+    path('openapi', get_schema_view(
+        title="Your Project",
+        description="API for all things …"
+    ), name='openapi-schema'),
 ]

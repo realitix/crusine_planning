@@ -25,7 +25,7 @@ SECRET_KEY = '@)zep)kb)(g@92vr5=k-j28n^6ui5t=^+gk@a$8!_9c57ifx$%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['abouletonfilm.fr']
 
 
 # Application definition

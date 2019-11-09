@@ -22,19 +22,19 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class IngredientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.Ingredient
-        fields = ['name']
+        fields = ['url', 'name']
 
 
 class UnitSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.Unit
-        fields = ['name']
+        fields = ['url', 'name']
 
 
 class UtensilSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.Utensil
-        fields = ['name']
+        fields = ['url', 'name']
 
 
 class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
@@ -44,34 +44,34 @@ class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = m.Receipe
-        fields = ['name', 'user', 'utensils', 'nb_people', 'stars']
+        fields = ['url', 'name', 'user', 'utensils', 'nb_people', 'stars']
 
 
 class ReceipeEntrySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.ReceipeEntry
-        fields = ['receipe', 'ingredient', 'unit', 'quantity']
+        fields = ['url', 'receipe', 'ingredient', 'unit', 'quantity']
 
 
 class ReceipeStepSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.ReceipeStep
-        fields = ['receipe', 'previous_step', 'description', 'duration']
+        fields = ['url', 'receipe', 'previous_step', 'description', 'duration']
 
 
 class ReceipeStepEntrySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.ReceipeStepEntry
-        fields = ['receipe_step', 'receipe_entry']
+        fields = ['url', 'receipe_step', 'receipe_entry']
 
 
 class MealSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.Meal
-        fields = ['datetime', 'nb_people']
+        fields = ['url', 'datetime', 'nb_people']
 
 
 class MealStepSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.MealStep
-        fields = ['meal', 'name', 'receipe_entry']
+        fields = ['url', 'meal', 'name', 'receipe_entry']

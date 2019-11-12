@@ -41,6 +41,8 @@ class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
     )
+    steps = serializers.RelatedField(
+        many=True, required=False, queryset=m.ReceipeStep.objects.all())
 
     class Meta:
         model = m.Receipe

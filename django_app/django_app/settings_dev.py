@@ -25,7 +25,7 @@ SECRET_KEY = '@)zep)kb)(g@92vr5=k-j28n^6ui5t=^+gk@a$8!_9c57ifx$%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'abouletonfilm.fr']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -79,11 +79,8 @@ WSGI_APPLICATION = 'django_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rawfood',
-        'USER': 'rawfood',
-        'PASSWORD': 'rawfood',
-        'HOST': 'localhost'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 

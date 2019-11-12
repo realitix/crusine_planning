@@ -5,7 +5,7 @@ from os import path
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
-from rawfood.models import Ingredient, IngredientCategory, IngredientNutrition
+from rawfood.models import Aliment, AlimentCategory, AlimentNutrition
 
 
 class Command(BaseCommand):
@@ -263,19 +263,19 @@ class Command(BaseCommand):
             if gname in group_mapping:
                 continue
 
-            cat = IngredientCategory(name=gname, fresh=gfresh)
+            cat = AlimentCategory(name=gname, fresh=gfresh)
             cat.save()
             group_mapping[gname] = cat
 
         # Insert aliment
         for x in data:
             cat = group_mapping[x['group_name']]
-            ingredient = Ingredient(name=x['name'], category=cat)
+            ingredient = Aliment(name=x['name'], category=cat)
             ingredient.save()
 
             n = x['nutrition']
-            nutrition = IngredientNutrition(
-                ingredient=ingredient, protein=n['protein'],
+            nutrition = AlimentNutrition(
+                aliment=ingredient, protein=n['protein'],
                 glucid=n['glucid'], lipid=n['lipid'])
             nutrition.save()
 

@@ -16,9 +16,9 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = s.GroupSerializer
 
 
-class IngredientViewSet(viewsets.ModelViewSet):
-    queryset = m.Ingredient.objects.all()
-    serializer_class = s.IngredientSerializer
+class AlimentViewSet(viewsets.ModelViewSet):
+    queryset = m.Aliment.objects.all()
+    serializer_class = s.AlimentSerializer
 
 
 class UnitViewSet(viewsets.ModelViewSet):
@@ -36,19 +36,14 @@ class ReceipeViewSet(viewsets.ModelViewSet):
     serializer_class = s.ReceipeSerializer
 
 
-class ReceipeEntryViewSet(viewsets.ModelViewSet):
-    queryset = m.ReceipeEntry.objects.all()
-    serializer_class = s.ReceipeEntrySerializer
+class IngredientViewSet(viewsets.ModelViewSet):
+    queryset = m.Ingredient.objects.all()
+    serializer_class = s.IngredientSerializer
 
 
 class ReceipeStepViewSet(viewsets.ModelViewSet):
     queryset = m.ReceipeStep.objects.all()
     serializer_class = s.ReceipeStepSerializer
-
-
-class ReceipeStepEntryViewSet(viewsets.ModelViewSet):
-    queryset = m.ReceipeStepEntry.objects.all()
-    serializer_class = s.ReceipeStepEntrySerializer
 
 
 class MealViewSet(viewsets.ModelViewSet):

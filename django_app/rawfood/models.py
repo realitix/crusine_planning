@@ -11,7 +11,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 
-class IngredientCategory(models.Model):
+class AlimentCategory(models.Model):
     name = models.CharField(unique=True, max_length=50)
     fresh = models.BooleanField()
 
@@ -19,26 +19,26 @@ class IngredientCategory(models.Model):
         return self.name
 
 
-class Ingredient(models.Model):
+class Aliment(models.Model):
     name = models.CharField(unique=True, max_length=50)
     category = models.ForeignKey(
-        IngredientCategory,
+        AlimentCategory,
         on_delete=models.CASCADE,
-        related_name="ingredients"
+        related_name="aliments"
     )
 
     def __str__(self):
         return self.name
 
 
-class IngredientNutrition(models.Model):
+class AlimentNutrition(models.Model):
     # All fields are in microgram
     protein = models.PositiveIntegerField()
     glucid = models.PositiveIntegerField()
     lipid = models.PositiveIntegerField()
 
-    ingredient = models.OneToOneField(
-        Ingredient,
+    aliment = models.OneToOneField(
+        Aliment,
         on_delete=models.CASCADE,
         primary_key=True
     )
@@ -63,10 +63,11 @@ class Utensil(models.Model):
 
 class Receipe(models.Model):
     name = models.CharField(unique=True, max_length=150)
-    user = models.ForeignKey('auth.User', related_name="receipes",
-                             on_delete=models.CASCADE)
-    utensils = models.ManyToManyField(Utensil, related_name="receipes",
-                                      blank=True)
+    user = models.ForeignKey(
+        'auth.User', related_name="receipes",
+        on_delete=models.CASCADE)
+    utensils = models.ManyToManyField(
+        Utensil, related_name="receipes", blank=True)
     nb_people = models.SmallIntegerField(blank=True, default=1)
     stars = models.SmallIntegerField(choices=[
         (1, "very bad"),
@@ -84,11 +85,11 @@ class Receipe(models.Model):
 # or a receipe.
 # If ingredient is not null, unit and quantity must be setted and receipe
 # must be null
-class ReceipeEntry(models.Model):
+class Ingredient(models.Model):
     receipe = models.ForeignKey(
         Receipe, on_delete=models.CASCADE, blank=True, null=True)
-    ingredient = models.ForeignKey(
-        Ingredient, on_delete=models.CASCADE, blank=True, null=True)
+    aliment = models.ForeignKey(
+        Aliment, on_delete=models.CASCADE, blank=True, null=True)
     unit = models.ForeignKey(
         Unit, models.CASCADE, blank=True, null=True)
     quantity = models.IntegerField(blank=True, null=True)
@@ -96,24 +97,19 @@ class ReceipeEntry(models.Model):
     def __str__(self):
         if self.receipe:
             return self.receipe.__str__()
-        return "{} {}{}".format(self.ingredient, self.quantity, self.unit)
+        return "{} {}{}".format(self.aliment, self.quantity, self.unit)
 
 
 class ReceipeStep(models.Model):
-    receipe = models.ForeignKey(Receipe, models.CASCADE)
+    receipe = models.ForeignKey(Receipe, models.CASCADE, related_name="steps")
     previous_step = models.ForeignKey(
         'self', models.CASCADE, null=True, blank=True)
     description = models.TextField()
     duration = models.DurationField()
+    ingredients = models.ManyToManyField('Ingredient')
 
     def __str__(self):
         return self.description
-
-
-# Receipe can contain ingredient
-class ReceipeStepEntry(models.Model):
-    receipe_step = models.ForeignKey(ReceipeStep, models.CASCADE)
-    receipe_entry = models.ForeignKey(ReceipeEntry, models.CASCADE)
 
 
 class Meal(models.Model):
@@ -127,7 +123,7 @@ class Meal(models.Model):
 class MealStep(models.Model):
     meal = models.ForeignKey(Meal, models.CASCADE)
     name = models.CharField(max_length=30)
-    receipe_entry = models.ForeignKey(Receipe, models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, models.CASCADE)
 
     def __str__(self):
         return self.name

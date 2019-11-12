@@ -19,7 +19,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
-class IngredientSerializer(serializers.HyperlinkedModelSerializer):
+class AlimentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.Ingredient
         fields = ['url', 'name']
@@ -44,25 +44,20 @@ class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = m.Receipe
-        fields = ['url', 'name', 'user', 'utensils', 'nb_people', 'stars']
+        fields = ['url', 'name', 'user', 'utensils', 'nb_people', 'stars',
+                  'steps']
 
 
-class ReceipeEntrySerializer(serializers.HyperlinkedModelSerializer):
+class IngredientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = m.ReceipeEntry
-        fields = ['url', 'receipe', 'ingredient', 'unit', 'quantity']
+        model = m.Ingredient
+        fields = ['url', 'receipe', 'aliment', 'unit', 'quantity']
 
 
 class ReceipeStepSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.ReceipeStep
         fields = ['url', 'receipe', 'previous_step', 'description', 'duration']
-
-
-class ReceipeStepEntrySerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = m.ReceipeStepEntry
-        fields = ['url', 'receipe_step', 'receipe_entry']
 
 
 class MealSerializer(serializers.HyperlinkedModelSerializer):
@@ -74,4 +69,4 @@ class MealSerializer(serializers.HyperlinkedModelSerializer):
 class MealStepSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.MealStep
-        fields = ['url', 'meal', 'name', 'receipe_entry']
+        fields = ['url', 'meal', 'name', 'ingredient']

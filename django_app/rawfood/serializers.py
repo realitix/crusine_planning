@@ -37,19 +37,6 @@ class UtensilSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
-class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HiddenField(
-        default=serializers.CurrentUserDefault()
-    )
-    steps = serializers.RelatedField(
-        many=True, required=False, queryset=m.ReceipeStep.objects.all())
-
-    class Meta:
-        model = m.Receipe
-        fields = ['url', 'name', 'user', 'utensils', 'nb_people', 'stars',
-                  'steps']
-
-
 class IngredientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = m.Ingredient
@@ -57,9 +44,25 @@ class IngredientSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ReceipeStepSerializer(serializers.HyperlinkedModelSerializer):
+    ingredients = IngredientSerializer(many=True, required=False)
+
     class Meta:
         model = m.ReceipeStep
-        fields = ['url', 'receipe', 'previous_step', 'description', 'duration']
+        fields = ['url', 'receipe', 'previous_step', 'description',
+                  'duration', 'ingredients']
+
+
+class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
+    steps = ReceipeStepSerializer(many=True)
+
+    class Meta:
+        model = m.Receipe
+        fields = ['url', 'name', 'user', 'utensils', 'nb_people', 'stars',
+                  'steps']
 
 
 class MealSerializer(serializers.HyperlinkedModelSerializer):

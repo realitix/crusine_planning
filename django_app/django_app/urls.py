@@ -5,6 +5,8 @@ from rest_framework.schemas import get_schema_view
 
 from rawfood import views
 
+
+# Simple routes
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
@@ -13,9 +15,9 @@ router.register(r'units', views.UnitViewSet)
 router.register(r'utensils', views.UtensilViewSet)
 router.register(r'receipes', views.ReceipeViewSet)
 router.register(r'ingredients', views.IngredientViewSet)
-router.register(r'receipe_steps', views.ReceipeStepViewSet)
+router.register(r'receipe-steps', views.ReceipeStepViewSet)
 router.register(r'meals', views.MealViewSet)
-router.register(r'meal_steps', views.MealStepViewSet)
+router.register(r'meal-steps', views.MealStepViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

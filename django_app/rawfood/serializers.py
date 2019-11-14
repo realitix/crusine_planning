@@ -21,7 +21,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 class AlimentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = m.Ingredient
+        model = m.Aliment
         fields = ['url', 'name']
 
 
@@ -37,19 +37,28 @@ class UtensilSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
-class IngredientSerializer(serializers.HyperlinkedModelSerializer):
+class ReceipeStepReceipeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = m.Ingredient
-        fields = ['url', 'receipe', 'aliment', 'unit', 'quantity']
+        model = m.ReceipeStepReceipe
+        fields = ['url', 'step', 'receipe']
+
+
+class ReceipeStepAlimentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = m.ReceipeStepAliment
+        fields = ['url', 'step', 'aliment', 'quantity', 'unit']
 
 
 class ReceipeStepSerializer(serializers.HyperlinkedModelSerializer):
-    ingredients = IngredientSerializer(many=True, required=False)
-
+    receipe_ingredients = ReceipeStepReceipeSerializer(
+        many=True, required=False)
+    aliment_ingredients = ReceipeStepAlimentSerializer(
+        many=True, required=False)
+    
     class Meta:
         model = m.ReceipeStep
         fields = ['url', 'receipe', 'previous_step', 'description',
-                  'duration', 'ingredients']
+                  'duration', 'receipe_ingredients', 'aliment_ingredients']
 
 
 class ReceipeSerializer(serializers.HyperlinkedModelSerializer):

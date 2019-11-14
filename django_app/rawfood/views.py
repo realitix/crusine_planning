@@ -36,9 +36,14 @@ class ReceipeViewSet(viewsets.ModelViewSet):
     serializer_class = s.ReceipeSerializer
 
 
-class IngredientViewSet(viewsets.ModelViewSet):
-    queryset = m.Ingredient.objects.all()
-    serializer_class = s.IngredientSerializer
+class ReceipeStepReceipeViewSet(viewsets.ModelViewSet):
+    queryset = m.ReceipeStepReceipe.objects.all()
+    serializer_class = s.ReceipeStepReceipeSerializer
+
+
+class ReceipeStepAlimentViewSet(viewsets.ModelViewSet):
+    queryset = m.ReceipeStepAliment.objects.all()
+    serializer_class = s.ReceipeStepAlimentSerializer
 
 
 class ReceipeStepViewSet(viewsets.ModelViewSet):

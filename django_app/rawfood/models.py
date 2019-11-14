@@ -81,35 +81,40 @@ class Receipe(models.Model):
         return self.name
 
 
-# This class allows to abstract the behavior of selecting an ingredient
-# or a receipe.
-# If ingredient is not null, unit and quantity must be setted and receipe
-# must be null
-class Ingredient(models.Model):
-    receipe = models.ForeignKey(
-        Receipe, on_delete=models.CASCADE, blank=True, null=True)
-    aliment = models.ForeignKey(
-        Aliment, on_delete=models.CASCADE, blank=True, null=True)
-    unit = models.ForeignKey(
-        Unit, models.CASCADE, blank=True, null=True)
-    quantity = models.IntegerField(blank=True, null=True)
-
-    def __str__(self):
-        if self.receipe:
-            return self.receipe.__str__()
-        return "{} {}{}".format(self.aliment, self.quantity, self.unit)
-
-
 class ReceipeStep(models.Model):
     receipe = models.ForeignKey(Receipe, models.CASCADE, related_name="steps")
     previous_step = models.ForeignKey(
         'self', models.CASCADE, null=True, blank=True)
     description = models.TextField()
     duration = models.DurationField()
-    ingredients = models.ManyToManyField('Ingredient')
 
     def __str__(self):
         return self.description
+
+
+class ReceipeStepReceipe(models.Model):
+    step = models.ForeignKey(
+        ReceipeStep, on_delete=models.CASCADE, 
+        related_name="receipe_ingredients")
+    receipe = models.ForeignKey(Receipe, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.receipe.__str__()
+
+
+class ReceipeStepAliment(models.Model):
+    step = models.ForeignKey(
+        ReceipeStep, on_delete=models.CASCADE, 
+        related_name="aliment_ingredients")
+    aliment = models.ForeignKey(Aliment, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    unit = models.SmallIntegerField(choices=[
+        (1, "g"),
+        (2, "unit")
+    ])
+
+    def __str__(self):
+        return "{} {}{}".format(self.aliment, self.quantity, self.unit)
 
 
 class Meal(models.Model):
@@ -123,7 +128,7 @@ class Meal(models.Model):
 class MealStep(models.Model):
     meal = models.ForeignKey(Meal, models.CASCADE)
     name = models.CharField(max_length=30)
-    ingredient = models.ForeignKey(Ingredient, models.CASCADE)
+    #ingredient = models.ForeignKey(Ingredient, models.CASCADE)
 
     def __str__(self):
         return self.name

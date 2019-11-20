@@ -66,7 +66,7 @@ class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
         default=serializers.CurrentUserDefault()
     )
 
-    steps = ReceipeStepSerializer(many=True)
+    steps = ReceipeStepSerializer(many=True, required=False)
 
     class Meta:
         model = m.Receipe

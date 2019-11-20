@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
@@ -86,7 +88,7 @@ class ReceipeStep(models.Model):
     previous_step = models.ForeignKey(
         'self', models.CASCADE, null=True, blank=True)
     description = models.TextField()
-    duration = models.DurationField()
+    duration = models.DurationField(default=timedelta, blank=True)
 
     def __str__(self):
         return self.description

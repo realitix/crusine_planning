@@ -85,8 +85,7 @@ class Receipe(models.Model):
 
 class ReceipeStep(models.Model):
     receipe = models.ForeignKey(Receipe, models.CASCADE, related_name="steps")
-    previous_step = models.ForeignKey(
-        'self', models.CASCADE, null=True, blank=True)
+    order = models.SmallIntegerField(null=True, blank=True)
     description = models.TextField()
     duration = models.DurationField(default=timedelta, blank=True)
 
@@ -96,7 +95,7 @@ class ReceipeStep(models.Model):
 
 class ReceipeStepReceipe(models.Model):
     step = models.ForeignKey(
-        ReceipeStep, on_delete=models.CASCADE, 
+        ReceipeStep, on_delete=models.CASCADE,
         related_name="receipe_ingredients")
     receipe = models.ForeignKey(Receipe, on_delete=models.CASCADE)
 
@@ -106,7 +105,7 @@ class ReceipeStepReceipe(models.Model):
 
 class ReceipeStepAliment(models.Model):
     step = models.ForeignKey(
-        ReceipeStep, on_delete=models.CASCADE, 
+        ReceipeStep, on_delete=models.CASCADE,
         related_name="aliment_ingredients")
     aliment = models.ForeignKey(Aliment, on_delete=models.CASCADE)
     quantity = models.IntegerField()
@@ -130,7 +129,7 @@ class Meal(models.Model):
 class MealStep(models.Model):
     meal = models.ForeignKey(Meal, models.CASCADE)
     name = models.CharField(max_length=30)
-    #ingredient = models.ForeignKey(Ingredient, models.CASCADE)
+    # ingredient = models.ForeignKey(Ingredient, models.CASCADE)
 
     def __str__(self):
         return self.name

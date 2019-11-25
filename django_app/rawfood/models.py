@@ -22,7 +22,7 @@ class AlimentCategory(models.Model):
 
 
 class Aliment(models.Model):
-    name = models.CharField(unique=True, max_length=50)
+    name = models.CharField(unique=True, max_length=150)
     category = models.ForeignKey(
         AlimentCategory,
         on_delete=models.CASCADE,

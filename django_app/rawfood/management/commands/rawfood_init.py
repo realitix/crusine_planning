@@ -251,7 +251,7 @@ class Command(BaseCommand):
             if d['group_name'] in accepted_group:
                 d['group_fresh'] = d['group_name'] in fresh_group
                 filtered_data.append(d)
-        
+
         return filtered_data
 
     def populate_database(data):
@@ -263,15 +263,24 @@ class Command(BaseCommand):
             if gname in group_mapping:
                 continue
 
-            cat = AlimentCategory(name=gname, fresh=gfresh)
-            cat.save()
+            try:
+                cat = AlimentCategory.objects.get(name=gname)
+            except AlimentCategory.DoesNotExist:
+                cat = AlimentCategory(name=gname, fresh=gfresh)
+                cat.save()
+
             group_mapping[gname] = cat
 
         # Insert aliment
         for x in data:
             cat = group_mapping[x['group_name']]
-            ingredient = Aliment(name=x['name'], category=cat)
-            ingredient.save()
+
+            try:
+                Aliment.objects.get(name=x['name'])
+                continue
+            except Aliment.DoesNotExist:
+                ingredient = Aliment(name=x['name'], category=cat)
+                ingredient.save()
 
             n = x['nutrition']
             nutrition = AlimentNutrition(

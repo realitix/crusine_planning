@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import filters
 
 from rawfood import models as m
 from rawfood import serializers as s
@@ -17,6 +17,8 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 
 class AlimentViewSet(viewsets.ModelViewSet):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
     queryset = m.Aliment.objects.all()
     serializer_class = s.AlimentSerializer
 

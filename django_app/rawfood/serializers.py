@@ -44,6 +44,8 @@ class ReceipeStepReceipeSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ReceipeStepAlimentSerializer(serializers.HyperlinkedModelSerializer):
+    aliment = AlimentSerializer()
+
     class Meta:
         model = m.ReceipeStepAliment
         fields = ['url', 'step', 'aliment', 'quantity', 'unit']
@@ -72,6 +74,9 @@ class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
         model = m.Receipe
         fields = ['url', 'name', 'user', 'utensils', 'nb_people', 'stars',
                   'steps']
+
+
+ReceipeStepReceipeSerializer.receipe = ReceipeSerializer()
 
 
 class MealSerializer(serializers.HyperlinkedModelSerializer):

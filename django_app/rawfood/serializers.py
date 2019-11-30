@@ -44,11 +44,11 @@ class ReceipeStepReceipeSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ReceipeStepAlimentSerializer(serializers.HyperlinkedModelSerializer):
-    aliment = AlimentSerializer()
+    aliment_detail = AlimentSerializer(source="aliment", read_only=True)
 
     class Meta:
         model = m.ReceipeStepAliment
-        fields = ['url', 'step', 'aliment', 'quantity', 'unit']
+        fields = ['url', 'step', 'aliment', 'aliment_detail', 'quantity', 'unit']
 
 
 class ReceipeStepSerializer(serializers.HyperlinkedModelSerializer):

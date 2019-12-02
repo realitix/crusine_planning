@@ -1,5 +1,6 @@
 import xmltodict
 import re
+import unidecode
 from os import path
 
 from django.core.management.base import BaseCommand, CommandError
@@ -274,12 +275,14 @@ class Command(BaseCommand):
         # Insert aliment
         for x in data:
             cat = group_mapping[x['group_name']]
+            n = x['name']
+            s = unidecode.unidecode(n)
 
             try:
-                Aliment.objects.get(name=x['name'])
+                Aliment.objects.get(name=n)
                 continue
             except Aliment.DoesNotExist:
-                ingredient = Aliment(name=x['name'], category=cat)
+                ingredient = Aliment(name=n, name_search=s, category=cat)
                 ingredient.save()
 
             n = x['nutrition']

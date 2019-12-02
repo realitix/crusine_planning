@@ -23,6 +23,8 @@ class AlimentCategory(models.Model):
 
 class Aliment(models.Model):
     name = models.CharField(unique=True, max_length=150)
+    # name search is used to search for an aliment
+    name_search = models.TextField()
     category = models.ForeignKey(
         AlimentCategory,
         on_delete=models.CASCADE,

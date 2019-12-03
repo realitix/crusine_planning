@@ -8,3 +8,4 @@ django-guardian
 django-sslserver
 xmltodict
 psycopg2-binary
+unidecode

@@ -25,7 +25,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 class AlimentViewSet(viewsets.ModelViewSet):
     search_fields = ['name_search']
-    filter_backends = (filters.UnaccentSearchFilter,)
+    filter_backends = (UnaccentSearchFilter,)
     queryset = m.Aliment.objects.all()
     serializer_class = s.AlimentSerializer
 

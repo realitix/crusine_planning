@@ -279,7 +279,10 @@ class Command(BaseCommand):
             s = unidecode.unidecode(n)
 
             try:
-                Aliment.objects.get(name=n)
+                ingredient = Aliment.objects.get(name=n)
+                if ingredient.name_search != s:
+                    ingredient.name_search = s
+                    ingredient.save()
                 continue
             except Aliment.DoesNotExist:
                 ingredient = Aliment(name=n, name_search=s, category=cat)

@@ -18,7 +18,8 @@ router.register(r'receipe-step-receipes', views.ReceipeStepReceipeViewSet)
 router.register(r'receipe-step-aliments', views.ReceipeStepAlimentViewSet)
 router.register(r'receipe-steps', views.ReceipeStepViewSet)
 router.register(r'meals', views.MealViewSet)
-router.register(r'meal-steps', views.MealStepViewSet)
+router.register(r'meal-receipes', views.MealReceipeViewSet)
+router.register(r'meal-aliments', views.MealAlimentViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

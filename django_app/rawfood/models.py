@@ -123,15 +123,30 @@ class ReceipeStepAliment(models.Model):
 class Meal(models.Model):
     datetime = models.DateTimeField()
     nb_people = models.SmallIntegerField()
+    description = models.CharField(max_length=150)
 
     def __str__(self):
         return self.datetime.__str__()
 
 
-class MealStep(models.Model):
-    meal = models.ForeignKey(Meal, models.CASCADE)
-    name = models.CharField(max_length=30)
-    # ingredient = models.ForeignKey(Ingredient, models.CASCADE)
+class MealReceipe(models.Model):
+    meal = models.ForeignKey(
+        Meal, on_delete=models.CASCADE, related_name="receipes")
+    receipe = models.ForeignKey(Receipe, models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return "MealReceipe"
+
+
+class MealAliment(models.Model):
+    meal = models.ForeignKey(
+        Meal, on_delete=models.CASCADE, related_name="aliments")
+    aliment = models.ForeignKey(Aliment, models.CASCADE)
+    quantity = models.IntegerField()
+    unit = models.SmallIntegerField(choices=[
+        (1, "g"),
+        (2, "unit")
+    ])
+
+    def __str__(self):
+        return "MealAliment"

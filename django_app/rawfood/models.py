@@ -67,9 +67,6 @@ class Utensil(models.Model):
 
 class Receipe(models.Model):
     name = models.CharField(unique=True, max_length=150)
-    user = models.ForeignKey(
-        'auth.User', related_name="receipes",
-        on_delete=models.CASCADE)
     utensils = models.ManyToManyField(
         Utensil, related_name="receipes", blank=True)
     nb_people = models.SmallIntegerField(blank=True, default=1)

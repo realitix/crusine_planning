@@ -65,15 +65,11 @@ class ReceipeStepSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.HiddenField(
-        default=serializers.CurrentUserDefault()
-    )
-
     steps = ReceipeStepSerializer(many=True, required=False)
 
     class Meta:
         model = m.Receipe
-        fields = ['url', 'name', 'user', 'utensils', 'nb_people', 'stars',
+        fields = ['url', 'name', 'utensils', 'nb_people', 'stars',
                   'steps']
 
 

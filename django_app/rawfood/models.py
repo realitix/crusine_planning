@@ -107,11 +107,7 @@ class ReceipeStepAliment(models.Model):
         ReceipeStep, on_delete=models.CASCADE,
         related_name="aliment_ingredients")
     aliment = models.ForeignKey(Aliment, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    unit = models.SmallIntegerField(choices=[
-        (1, "g"),
-        (2, "unit")
-    ])
+    quantity = models.IntegerField()  # Always in grams
 
     def __str__(self):
         return "{} {}{}".format(self.aliment, self.quantity, self.unit)

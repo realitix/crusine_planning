@@ -16,7 +16,13 @@ def main(android_data_dir):
     from django.core.management.commands import makemigrations, migrate, runserver
     management.call_command(makemigrations.Command(), "rawfood")
     management.call_command(migrate.Command())
-    management.call_command(runserver.Command(), use_reloader=False)
+
+    # Prepare database
+    from rawfood.management.commands import update_aliments
+    management.call_command(update_aliments.Command())
+
+    # Run server
+    management.call_command(runserver.Command(), addrport="127.0.0.1:18385", use_reloader=False)
 
 
 if __name__ == "__main__":

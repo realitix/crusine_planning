@@ -136,10 +136,6 @@ class MealAliment(models.Model):
         Meal, on_delete=models.CASCADE, related_name="aliments")
     aliment = models.ForeignKey(Aliment, models.CASCADE)
     quantity = models.IntegerField()
-    unit = models.SmallIntegerField(choices=[
-        (1, "g"),
-        (2, "unit")
-    ])
 
     def __str__(self):
         return "MealAliment"

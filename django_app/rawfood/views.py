@@ -41,6 +41,8 @@ class UtensilViewSet(viewsets.ModelViewSet):
 
 
 class ReceipeViewSet(viewsets.ModelViewSet):
+    search_fields = ['name']
+    filter_backends = (filters.SearchFilter,)
     queryset = m.Receipe.objects.all()
     serializer_class = s.ReceipeSerializer
 

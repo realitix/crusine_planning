@@ -37,10 +37,19 @@ class UtensilSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
+class ThinReceipeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = m.Receipe
+        fields = ['url', 'name', 'utensils', 'nb_people', 'stars']
+
+
 class ReceipeStepReceipeSerializer(serializers.HyperlinkedModelSerializer):
+    receipe_detail = ThinReceipeSerializer(source="receipe", read_only=True)
+
+
     class Meta:
         model = m.ReceipeStepReceipe
-        fields = ['url', 'step', 'receipe']
+        fields = ['url', 'step', 'receipe', 'receipe_detail']
 
 
 class ReceipeStepAlimentSerializer(serializers.HyperlinkedModelSerializer):
@@ -52,15 +61,15 @@ class ReceipeStepAlimentSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ReceipeStepSerializer(serializers.HyperlinkedModelSerializer):
-    receipe_ingredients = ReceipeStepReceipeSerializer(
+    receipes = ReceipeStepReceipeSerializer(
         many=True, required=False)
-    aliment_ingredients = ReceipeStepAlimentSerializer(
+    aliments = ReceipeStepAlimentSerializer(
         many=True, required=False)
     
     class Meta:
         model = m.ReceipeStep
         fields = ['url', 'receipe', 'order', 'description',
-                  'duration', 'receipe_ingredients', 'aliment_ingredients']
+                  'duration', 'receipes', 'aliments']
 
 
 class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
@@ -72,22 +81,27 @@ class ReceipeSerializer(serializers.HyperlinkedModelSerializer):
                   'steps']
 
 
-ReceipeStepReceipeSerializer.receipe = ReceipeSerializer()
-
-
-class MealSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = m.Meal
-        fields = ['url', 'datetime', 'nb_people', 'aliments', 'receipes']
-
 
 class MealReceipeSerializer(serializers.HyperlinkedModelSerializer):
+    receipe_detail = ReceipeSerializer(source="receipe", read_only=True)
+
     class Meta:
         model = m.MealReceipe
-        fields = ['meal', 'receipe']
+        fields = ['meal', 'receipe', 'receipe_detail']
 
 
 class MealAlimentSerializer(serializers.HyperlinkedModelSerializer):
+    aliment_detail = AlimentSerializer(source="aliment", read_only=True)
+
     class Meta:
         model = m.MealAliment
-        fields = ['meal', 'aliment', 'quantity']
+        fields = ['meal', 'aliment', 'quantity', 'aliment_detail']
+
+
+class MealSerializer(serializers.HyperlinkedModelSerializer):
+    aliments = MealAlimentSerializer(many=True, required=False)
+    receipes = MealReceipeSerializer(many=True, required=False)
+
+    class Meta:
+        model = m.Meal
+        fields = ['url', 'datetime', 'nb_people', 'aliments', 'receipes']

@@ -95,7 +95,7 @@ class ReceipeStep(models.Model):
 class ReceipeStepReceipe(models.Model):
     step = models.ForeignKey(
         ReceipeStep, on_delete=models.CASCADE,
-        related_name="receipe_ingredients")
+        related_name="receipes")
     receipe = models.ForeignKey(Receipe, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -105,7 +105,7 @@ class ReceipeStepReceipe(models.Model):
 class ReceipeStepAliment(models.Model):
     step = models.ForeignKey(
         ReceipeStep, on_delete=models.CASCADE,
-        related_name="aliment_ingredients")
+        related_name="aliments")
     aliment = models.ForeignKey(Aliment, on_delete=models.CASCADE)
     quantity = models.IntegerField()  # Always in grams
 

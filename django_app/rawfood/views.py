@@ -2,6 +2,9 @@ from unidecode import unidecode
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import filters
+from django_filters import rest_framework as djfilters
+import django_filters
+from django.db import models as django_models
 
 from rawfood import models as m
 from rawfood import serializers as s
@@ -11,6 +14,20 @@ class UnaccentSearchFilter(filters.SearchFilter):
     def get_search_terms(self, request):
         params = super().get_search_terms(request)
         return [unidecode(x) for x in params]
+
+
+class MealDatetimeFilter(djfilters.FilterSet):
+    class Meta:
+        model = m.Meal
+        fields = {
+            'datetime': ('lte', 'gte')
+        }
+
+    filter_overrides = {
+        django_models.DateTimeField: {
+            'filter_class': django_filters.IsoDateTimeFilter
+        },
+    }
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -65,6 +82,8 @@ class ReceipeStepViewSet(viewsets.ModelViewSet):
 class MealViewSet(viewsets.ModelViewSet):
     queryset = m.Meal.objects.all()
     serializer_class = s.MealSerializer
+    filter_backends = (djfilters.DjangoFilterBackend, )
+    filter_class = MealDatetimeFilter
 
 
 class MealReceipeViewSet(viewsets.ModelViewSet):

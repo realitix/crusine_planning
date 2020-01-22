@@ -3,8 +3,11 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import filters
 from django_filters import rest_framework as djfilters
+from rest_framework.decorators import action
 import django_filters
 from django.db import models as django_models
+from rest_framework.response import Response
+import datetime
 
 from rawfood import models as m
 from rawfood import serializers as s
@@ -84,6 +87,17 @@ class MealViewSet(viewsets.ModelViewSet):
     serializer_class = s.MealSerializer
     filter_backends = (djfilters.DjangoFilterBackend, )
     filter_class = MealDatetimeFilter
+
+    @action(detail=False)
+    def next_preparation(self, request):
+        # Display receipe from this algorythm:
+        # We remove the time from selected datetime
+        # We remove one day more to be sure to not forget something more
+        get_date = request.GET.get('datetime')
+        current_date = datetime.datetime.fromtimestamp(get_date)
+        meals = m.Meal.objects.all()
+        serializer = self.get_serializer(meals, many=True)
+        return Response(serializer.data)
 
 
 class MealReceipeViewSet(viewsets.ModelViewSet):
